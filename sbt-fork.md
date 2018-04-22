@@ -35,7 +35,7 @@ This limits heap and metaspace to a value that would allow both compilation and 
 
 The reason Metaspace OOMEs are trickier to deal with is that garbage collection there happens only after references in Heap are collected, so if even a single reference is held by a class from a classloader all of the classes from that classloader are kept in memory. That means a reference to a single class can waste hundreds of megabytes of memory for a medium sized application.  
 
-This [article](http://java.jiderhamn.se/2011/12/11/classloader-leaks-i-how-to-find-classloader-leaks-with-eclipse-memory_-analyser-mat/) was very useful for detecting memory leaks leading to both Heap and Metaspace OOMEs. Here are a few reasons i found:
+This [article](http://java.jiderhamn.se/2011/12/11/classloader-leaks-i-how-to-find-classloader-leaks-with-eclipse-memory-analyser-mat/) was very useful for detecting memory leaks leading to both Heap and Metaspace OOMEs. Here are a few reasons i found:
 - threadpools
 
 Lots of libs (eg `okhttp`, `web3j`) use a global threadpool which isn't ever going to be garbage collected (even if it's setup to use daemon threads), which means the class that started the threadpool won't be either. Your tests or apps will have to shutdown them manually:
