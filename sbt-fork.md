@@ -97,7 +97,7 @@ You'll need to fix the libs that use it or revert to forking. Notable examples a
 
 A curious case when attaching a profiler makes it hold on all classloaders (at least with JVisualVM). Make sure you have no profiler attached when debugging Metaspace leaks.
 
-There are way more [ways](http://java.jiderhamn.se/2012/02/26/classloader-leaks-v-common-mistakes-and-known-offenders/) to trip up Metaspace GC, but thankfully they are much less relevant in scala world than they in java.
+There are way more [ways](http://java.jiderhamn.se/2012/02/26/classloader-leaks-v-common-mistakes-and-known-offenders/) to trip up Metaspace GC, but thankfully they are much less relevant in scala world than they are in java.
 
 
 Finally, since Metaspace GC depends on Heap GC, executing a bunch of runs immediately one after another like `;test;test;test;test;test;test` may blow up Metaspace even if there are technically no leaks, because Heap is large enough to not run a GC cycle.
@@ -115,7 +115,6 @@ In the future i'll try to hook it up to sbt, meanwhile here is some example sour
 -J-XX:MetaspaceSize=200m
 ```
 `build.sbt`
-```
 ```scala
 lazy val root = project.aggregates(api, `api-it`)  
 lazy val api = project
